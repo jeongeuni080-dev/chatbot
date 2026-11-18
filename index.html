@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자가진단 및 응급 신호 | 생리 건강 가이드</title>
+  <style>
+    :root {
+      --primary: #e11d48;
+      --primary-light: #ffe4e6;
+      --primary-dark: #be123c;
+      --secondary: #4f46e5;
+      --secondary-light: #eef2ff;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --safe: #059669;
+      --safe-light: #d1fae5;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    /* Navigation Header */
+    header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      overflow-x: auto;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-sub);
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .nav-links a.active {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #fff1f2 0%, #f8fafc 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 20px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--text-sub);
+      font-size: 1.02rem;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    /* Section Card */
+    .section-card {
+      background-color: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-tag {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+
+    .tag-danger { color: var(--primary); }
+    .tag-info { color: var(--secondary); }
+    .tag-check { color: var(--warning); }
+
+    .section-header h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      color: var(--text-sub);
+      font-size: 0.96rem;
+    }
+
+    /* Red Flags Section */
+    .red-flag-card {
+      border: 2px solid #fecdd3;
+      background: linear-gradient(to bottom, #fff1f2 0%, #ffffff 120px);
+    }
+
+    .checklist-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background-color: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .check-item:hover {
+      border-color: #fda4af;
+      background-color: #fffafb;
+    }
+
+    .check-item.checked-danger {
+      border-color: var(--primary);
+      background-color: #fff1f2;
+    }
+
+    .check-item.checked-warn {
+      border-color: var(--warning);
+      background-color: #fffbeb;
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .check-item.warn-item input[type="checkbox"] {
+      accent-color: var(--warning);
+    }
+
+    .check-content strong {
+      display: block;
+      font-size: 1.02rem;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .check-content span {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--text-sub);
+    }
+
+    /* Dynamic Alert Box */
+    .result-banner {
+      margin-top: 24px;
+      padding: 22px 24px;
+      border-radius: var(--radius-md);
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .result-banner.active {
+      display: block;
+    }
+
+    .result-danger {
+      background-color: #ffe4e6;
+      border: 1.5px solid #f43f5e;
+      color: #881337;
+    }
+
+    .result-warn {
+      background-color: var(--warning-light);
+      border: 1.5px solid #f59e0b;
+      color: #78350f;
+    }
+
+    .result-safe {
+      background-color: var(--safe-light);
+      border: 1.5px solid #10b981;
+      color: #064e3b;
+    }
+
+    .result-banner h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .result-banner p {
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-danger {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-danger:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: #ffffff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #4338ca;
+    }
+
+    .btn-outline {
+      background-color: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background-color: #f1f5f9;
+    }
+
+    /* Comparison Table */
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      font-size: 0.94rem;
+    }
+
+    thead th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .col-category {
+      width: 15%;
+      font-weight: 700;
+      background-color: #fafafa;
+    }
+
+    .col-normal {
+      width: 27%;
+      background-color: #f0fdf4;
+    }
+
+    .col-abnormal {
+      width: 33%;
+      background-color: #fff1f2;
+    }
+
+    .col-note {
+      width: 25%;
+      color: var(--text-sub);
+    }
+
+    .badge-normal {
+      display: inline-block;
+      background-color: #dcfce7;
+      color: #166534;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .badge-abnormal {
+      display: inline-block;
+      background-color: #ffe4e6;
+      color: #9f1239;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .abnormal-list {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .abnormal-list li {
+      margin-bottom: 4px;
+    }
+
+    /* Glossary Cards for Abnormal Types */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .glossary-card {
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+
+    .glossary-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 6px;
+    }
+
+    .glossary-card p {
+      font-size: 0.89rem;
+      color: var(--text-sub);
+    }
+
+    /* Reset Button Row */
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .count-text {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    /* Bottom CTA */
+    .cta-box {
+      background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .cta-text h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .cta-text p {
+      color: #e0e7ff;
+      font-size: 0.96rem;
+    }
+
+    /* References & Disclaimer */
+    .references-box {
+      background-color: #f1f5f9;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .references-box h4 {
+      color: var(--text-main);
+      font-size: 0.94rem;
+      margin-bottom: 10px;
+    }
+
+    .references-box ul {
+      padding-left: 18px;
+      margin-bottom: 14px;
+    }
+
+    .references-box li {
+      margin-bottom: 4px;
+    }
+
+    .disclaimer-text {
+      padding-top: 12px;
+      border-top: 1px solid #cbd5e1;
+      font-weight: 500;
+      color: var(--text-sub);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.6rem; }
+      .section-card { padding: 22px 18px; }
+      .cta-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 공통 네비게이션 (5개 페이지 연결 구조) -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">🩺 생리 건강 케어</a>
+      <ul class="nav-links">
+        <li><a href="index.html">1. 홈</a></li>
+        <li><a href="chatbot.html">2. AI 증상 체크</a></li>
+        <li><a href="self-check.html" class="active">3. 자가진단 및 응급 신호</a></li>
+        <li><a href="health-info.html">4. 질환 백과 및 건강 칼럼</a></li>
+        <li><a href="clinic-guide.html">5. 병원 방문 가이드</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 페이지 히어로 배너 -->
+  <section class="hero">
+    <span class="hero-badge">STEP 03 · 객관적 기준 대조 가이드</span>
+    <h1>자가진단 및 응급 신호 (Self-Check &amp; Red Flags)</h1>
+    <p>
+      AI 증상 체크 챗봇 이용 전후로 내 상태를 의학적 표준 기준과 대조해 보세요.<br />
+      즉시 병원을 찾아야 하는 위험 신호(Red Flags)와 정상·비정상 생리 양상의 차이를 확인할 수 있습니다.
+    </p>
+  </section>
+
+  <main>
+    <!-- 1. 위험 신호 (Red Flags) 체크리스트 -->
+    <section class="section-card red-flag-card" aria-labelledby="red-flag-title">
+      <div class="section-header">
+        <span class="section-tag tag-danger">🚨 EMERGENCY RED FLAGS</span>
+        <h2 id="red-flag-title">즉시 진료가 필요한 위험 신호 체크리스트</h2>
+        <p>
+          아래 항목 중 <strong>단 1개라도 해당</strong>한다면, 자가 관리를 중단하고 지체 없이 산부인과 전문의 진료 또는 응급실 방문을 권장합니다.
+        </p>
+      </div>
+
+      <div class="checklist-group" id="redFlagList">
+        <label class="check-item">
+          <input type="checkbox" class="red-flag-checkbox" />
+          <div class="check-content">
+            <strong>1. 패드를 감당할 수 없는 급성 과다출혈</strong>
+            <span>대형 생리대 또는 탐폰을 <strong>1~2시간마다 흠뻑 적실 정도</strong>의 출혈이 2시간 이상 연속으로 지속됩니다.</span>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="red-flag-checkbox" />
+          <div class="check-content">
+            <strong>2. 급성 빈혈 및 저혈량 쇼크 전조 증상</strong>
+            <span>출혈·통증과 함께 극심한 어지러움, 기립 시 눈앞이 깜깜해짐, 식은땀, 얼굴 창백, 숨가쁨(호흡곤란)이 동반됩니다.</span>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="red-flag-checkbox" />
+          <div class="check-content">
+            <strong>3. 진통제가 전혀 듣지 않는 극심한 하복부 통증</strong>
+            <span>적정 용량의 소염진통제를 복용해도 통증이 가라앉지 않거나, 갑자기 칼로 찌르는 듯한 극심한 통증이 발생했습니다.</span>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="red-flag-checkbox" />
+          <div class="check-content">
+            <strong>4. 고열·오한·구토가 동반된 골반통</strong>
+            <span>생리통 또는 아랫배 통증과 함께 <strong>38°C 이상의 고열</strong>, 오한, 심한 메스꺼움이나 반복적인 구토가 나타납니다.</span>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="red-flag-checkbox" />
+          <div class="check-content">
+            <strong>5. 임신 가능성 중 질 출혈 및 한쪽 아랫배 통증</strong>
+            <span>임신 테스트기 양성이거나 임신 가능성이 있는 상태에서 질 출혈과 함께 한쪽 하복부에 묵직하거나 찌르는 통증이 있습니다. (자궁외임신 등 감별 필요)</span>
+          </div>
+        </label>
+      </div>
+
+      <div class="action-bar">
+        <span class="count-text" id="redFlagCountText">선택된 위험 신호: 0개</span>
+        <button type="button" class="btn btn-outline" id="resetRedFlags">선택 초기화</button>
+      </div>
+
+      <!-- 위험 신호 실시간 판별 결과 박스 -->
+      <div class="result-banner result-danger" id="redFlagAlert" role="alert">
+        <h3>⚠️ [즉시 내원 필요] 응급 위험 신호가 감지되었습니다</h3>
+        <p>
+          선택하신 항목은 급성 철분 결핍성 빈혈, 골반염(PID), 난소 낭종 파열·염전 또는 자궁외임신 등 신속한 의학적 처치가 필요한 징후일 수 있습니다. 지체하지 말고 가까운 산부인과 또는 응급실을 방문하세요.
+        </p>
+        <div class="btn-group">
+          <a href="clinic-guide.html" class="btn btn-danger">5. 병원 방문 가이드 및 준비물 확인하기 →</a>
+          <a href="chatbot.html" class="btn btn-outline">2. AI 챗봇으로 의사 전달용 증상 요약본 만들기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 생리 양상 가이드 (정상 vs 비정상) -->
+    <section class="section-card" aria-labelledby="pattern-guide-title">
+      <div class="section-header">
+        <span class="section-tag tag-info">📊 CLINICAL STANDARD GUIDE</span>
+        <h2 id="pattern-guide-title">정상 생리 vs 비정상 생리 양상 가이드</h2>
+        <p>
+          국제산부인과연맹(FIGO) 및 대한산부인과학회의 정상 월경 기준을 바탕으로, 평소 내 주기와 출혈 양상이 정상 범위에 속하는지 비교해 보세요.
+        </p>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>구분 항목</th>
+              <th>🟢 정상 범위 (Normal)</th>
+              <th>🔴 비정상 신호 (Abnormal)</th>
+              <th>의학적 분류 및 확인 포인트</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-category">생리 주기<br><small style="font-weight:400; color:#64748b;">(시작일~다음 시작일)</small></td>
+              <td class="col-normal">
+                <span class="badge-normal">정상 주기</span><br />
+                <strong>21일 ~ 35일</strong> 간격<br />
+                <span style="font-size:0.86rem; color:#15803d;">(매달 ±3~5일 정도의 변동은 정상 범주)</span>
+              </td>
+              <td class="col-abnormal">
+                <span class="badge-abnormal">주기 이상</span>
+                <ul class="abnormal-list">
+                  <li><strong>21일 미만</strong>으로 너무 자주 함 (빈발월경)</li>
+                  <li><strong>35일 이상</strong> 길어짐 (희발월경)</li>
+                  <li>임신 없이 <strong>3개월 이상</strong> 생리가 없음 (무월경)</li>
+                </ul>
+              </td>
+              <td class="col-note">
+                배란 장애, 다낭성난소증후군(PCOS), 갑상선 기능 이상, 급격한 체중 변화 및 스트레스 감별 필요
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-category">생리 기간<br><small style="font-weight:400; color:#64748b;">(출혈 지속 일수)</small></td>
+              <td class="col-normal">
+                <span class="badge-normal">정상 기간</span><br />
+                <strong>2일 ~ 7일</strong> 지속
+              </td>
+              <td class="col-abnormal">
+                <span class="badge-abnormal">기간 이상</span>
+                <ul class="abnormal-list">
+                  <li><strong>2일 미만</strong>으로 출혈이 극히 짧게 끝남</li>
+                  <li><strong>8일 이상</strong> 출혈이 멈추지 않고 지속됨</li>
+                </ul>
+              </td>
+              <td class="col-note">
+                자궁내막 용종(폴립), 자궁내막 증식증, 호르몬 불균형, 무배란성 출혈 확인 필요
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-category">출혈량<br><small style="font-weight:400; color:#64748b;">(총 실혈량 및 양상)</small></td>
+              <td class="col-normal">
+                <span class="badge-normal">정상 출혈량</span><br />
+                한 주기 총량 <strong>20 ~ 80mL</strong><br />
+                <span style="font-size:0.86rem; color:#15803d;">(보통 하루 3~5회 패드 교체 수준)</span>
+              </td>
+              <td class="col-abnormal">
+                <span class="badge-abnormal">월경과다 의심</span>
+                <ul class="abnormal-list">
+                  <li>총 출혈량 <strong>80mL 초과</strong> 추정</li>
+                  <li><strong>500원 동전 크기(약 2.5cm) 이상</strong> 큰 핏덩어리(혈괴)가 자주 나옴</li>
+                  <li>밤에 자다가 패드를 교체하러 일어나야 함</li>
+                </ul>
+              </td>
+              <td class="col-note">
+                자궁근종, 자궁선근증, 혈액응고 장애 가능성 및 만성 철분 결핍성 빈혈 동반 여부 검사 권장
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-category">출혈 시기<br><small style="font-weight:400; color:#64748b;">(비주기적 출혈 여부)</small></td>
+              <td class="col-normal">
+                <span class="badge-normal">정상 시기</span><br />
+                예측 가능한 생리 기간에만 출혈 발생
+              </td>
+              <td class="col-abnormal">
+                <span class="badge-abnormal">부정출혈</span>
+                <ul class="abnormal-list">
+                  <li>생리 기간이 아닌데 갈색 혈이나 선홍색 피가 비침</li>
+                  <li>성관계 후 질 출혈이 발생함</li>
+                </ul>
+              </td>
+              <td class="col-note">
+                단순 배란혈일 수도 있으나 자궁경부염, 자궁경부 이형성증, 자궁내막 병변 감별을 위해 진료 필요
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 주요 비정상 용어 요약 카드 -->
+      <div class="glossary-grid">
+        <div class="glossary-card">
+          <h4>무월경 (Amenorrhea)</h4>
+          <p>기존 생리가 있던 여성이 평소 주기의 3배 이상 또는 <strong>3개월 이상</strong> 생리가 없는 상태(속발성 무월경)로, 임신 여부를 먼저 확인한 후 호르몬·난소 검사가 필요합니다.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>부정출혈 (Abnormal Uterine Bleeding)</h4>
+          <p>정상적인 생리 주기를 벗어나 불규칙한 시기에 발생하는 모든 질 출혈입니다. 출혈량이 적더라도 반복된다면 자궁경부 및 내막 확인이 권장됩니다.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>월경과다 (Heavy Menstrual Bleeding)</h4>
+          <p>출혈량이 80mL를 넘거나 일상생활(수면, 학업, 업무)을 방해할 정도로 양이 많은 상태입니다. 어지럼증·피로 등 빈혈 증상이 동반되기 쉽습니다.</p>
+        </div>
+        <div class="glossary-card">
+          <h4>속발성 생리통 (Secondary Dysmenorrhea)</h4>
+          <p>예전에는 생리통이 없거나 가벼웠으나, 최근 들어 통증이 새로 생기거나 갈수록 심해지는 경우로 자궁내막증·자궁선근증 등 기질적 원인 확인이 중요합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 외래 진료 권장 추가 자가진단 체크리스트 -->
+    <section class="section-card" aria-labelledby="self-check-title">
+      <div class="section-header">
+        <span class="section-tag tag-check">🩺 SELF-ASSESSMENT CHECKLIST</span>
+        <h2 id="self-check-title">산부인과 외래 상담 권장 자가진단</h2>
+        <p>
+          응급(Red Flag) 상황은 아니더라도, 아래 항목에 해당한다면 가까운 시일 내에 산부인과 외래 진료를 통해 원인을 확인하는 것이 좋습니다.
+        </p>
+      </div>
+
+      <div class="checklist-group" id="generalCheckList">
+        <label class="check-item warn-item">
+          <input type="checkbox" class="general-checkbox" />
+          <div class="check-content">
+            <strong>예전에는 없던 심한 생리통이 최근 갑자기 생겼거나 갈수록 심해집니다.</strong>
+            <span>초경 직후부터 있던 일차성 생리통과 달리, 성인기 이후 악화되는 통증은 자궁내막증·자궁선근증 등의 신호일 수 있습니다.</span>
+          </div>
+        </label>
+
+        <label class="check-item warn-item">
+          <input type="checkbox" class="general-checkbox" />
+          <div class="check-content">
+            <strong>생리 기간이 아닌데도 아랫배가 묵직하거나 골반 통증이 이어집니다.</strong>
+            <span>배란통을 넘어 비주기적인 골반통이나 성교통, 배변 시 통증이 동반된다면 부인과 초음파 검사가 권장됩니다.</span>
+          </div>
+        </label>
+
+        <label class="check-item warn-item">
+          <input type="checkbox" class="general-checkbox" />
+          <div class="check-content">
+            <strong>최근 6개월간 생리 주기가 21일 미만 또는 35일 이상으로 불규칙합니다.</strong>
+            <span>일시적 피로가 아닌 반복적인 주기 이상은 배란 기능 저하나 다낭성난소증후군(PCOS) 여부를 점검해야 합니다.</span>
+          </div>
+        </label>
+
+        <label class="check-item warn-item">
+          <input type="checkbox" class="general-checkbox" />
+          <div class="check-content">
+            <strong>질 분비물에서 악취가 나거나 노란색·초록색·치즈 양상의 변화가 있습니다.</strong>
+            <span>질염이나 골반염 등 감염성 질환의 가능성이 있으므로 적절한 항생제·항진균제 치료가 필요합니다.</span>
+          </div>
+        </label>
+
+        <label class="check-item warn-item">
+          <input type="checkbox" class="general-checkbox" />
+          <div class="check-content">
+            <strong>생리 전후 우울감·불안·극심한 피로로 학업이나 직장 생활이 어렵습니다.</strong>
+            <span>월경전증후군(PMS) 또는 월경전불쾌장애(PMDD)에 해당할 수 있으며, 생활 교정 및 의학적 치료로 개선할 수 있습니다.</span>
+          </div>
+        </label>
+      </div>
+
+      <div class="action-bar">
+        <span class="count-text" id="generalCountText">선택된 상담 권장 항목: 0개</span>
+        <button type="button" class="btn btn-outline" id="resetGeneral">선택 초기화</button>
+      </div>
+
+      <!-- 일반 자가진단 실시간 판별 결과 박스 -->
+      <div class="result-banner result-warn" id="generalWarnAlert">
+        <h3>📋 [산부인과 외래 진료 권장] 전문의 상담을 받아보세요</h3>
+        <p>
+          응급실 방문이 필요한 급성 위험 신호는 없으나, 선택하신 증상은 부인과적 검사(초음파, 호르몬 검사 등)를 통해 원인을 확인하고 관리해야 하는 신호입니다. AI 챗봇으로 증상을 정리한 뒤 병원을 방문해 보세요.
+        </p>
+        <div class="btn-group">
+          <a href="chatbot.html" class="btn btn-secondary">2. AI 증상 체크 챗봇으로 상세 분석하기 →</a>
+          <a href="health-info.html" class="btn btn-outline">4. 관련 부인과 질환 백과 보기</a>
+        </div>
+      </div>
+
+      <div class="result-banner result-safe active" id="generalSafeAlert">
+        <h3>✅ 현재 체크된 이상 징후가 없습니다</h3>
+        <p>
+          응급 위험 신호 및 주요 이상 소견에 체크된 항목이 없습니다. 평소 생리 시작일과 기간, 출혈량을 기록해 두시면 향후 변화가 생겼을 때 큰 도움이 됩니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- 하단 페이지 연결 배너 (2페이지 & 4페이지) -->
+    <section class="cta-box">
+      <div class="cta-text">
+        <h3>내 증상을 종합적으로 분석해 보고 싶다면?</h3>
+        <p>
+          챗봇에 통증 강도와 출혈 양상을 입력하면 내원 권고 등급과 함께 병원 제출용 증상 요약본을 만들어 드립니다.
+        </p>
+      </div>
+      <div class="btn-group">
+        <a href="chatbot.html" class="btn btn-danger">2. AI 증상 체크 챗봇 시작하기</a>
+        <a href="health-info.html" class="btn btn-outline">4. 질환 백과 및 건강 칼럼</a>
+      </div>
+    </section>
+
+    <!-- 의학적 출처 및 면책 조항 -->
+    <footer class="references-box">
+      <h4>📚 의학적 기준 출처 (Clinical References)</h4>
+      <ul>
+        <li><strong>국제산부인과연맹 (FIGO):</strong> Munro MG, et al. <em>The two FIGO systems for normal and abnormal uterine bleeding symptoms and classification of causes of abnormal uterine bleeding in the reproductive years</em> (정상 월경 주기 24~38일/임상 보편 기준 21~35일, 기간 ≤8일, 정상 출혈량 기준).</li>
+        <li><strong>미국산부인과학회 (ACOG):</strong> <em>Abnormal Uterine Bleeding</em> &amp; <em>Dysmenorrhea: Painful Periods</em> Patient Education Guidelines (1~2시간마다 패드를 적시는 출혈, 조절되지 않는 통증 등 응급 내원 기준).</li>
+        <li><strong>질병관리청 국가건강정보포털:</strong> 월경이상(무월경, 월경과다, 부정출혈) 및 월경통 건강정보 가이드라인.</li>
+      </ul>
+      <p class="disclaimer-text">
+        ※ 의료적 면책 조항(Disclaimer): 본 페이지의 자가진단 체크리스트와 기준표는 의학적 이해를 돕기 위한 참고용 정보이며, 의사의 전문적인 진찰과 진단을 대신할 수 없습니다. 증상이 지속되거나 악화될 경우 반드시 산부인과 전문의의 진료를 받으시기 바랍니다.
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    const redCheckboxes = document.querySelectorAll('.red-flag-checkbox');
+    const redFlagAlert = document.getElementById('redFlagAlert');
+    const redFlagCountText = document.getElementById('redFlagCountText');
+    const resetRedFlagsBtn = document.getElementById('resetRedFlags');
+
+    const generalCheckboxes = document.querySelectorAll('.general-checkbox');
+    const generalWarnAlert = document.getElementById('generalWarnAlert');
+    const generalSafeAlert = document.getElementById('generalSafeAlert');
+    const generalCountText = document.getElementById('generalCountText');
+    const resetGeneralBtn = document.getElementById('resetGeneral');
+
+    function updateRedFlags() {
+      let checkedCount = 0;
+      redCheckboxes.forEach((cb) => {
+        const parent = cb.closest('.check-item');
+        if (cb.checked) {
+          checkedCount++;
+          parent.classList.add('checked-danger');
+        } else {
+          parent.classList.remove('checked-danger');
+        }
+      });
+
+      redFlagCountText.textContent = `선택된 위험 신호: ${checkedCount}개`;
+
+      if (checkedCount > 0) {
+        redFlagAlert.classList.add('active');
+      } else {
+        redFlagAlert.classList.remove('active');
+      }
+      updateGeneralStatus();
+    }
+
+    function updateGeneralStatus() {
+      const redCount = Array.from(redCheckboxes).filter((cb) => cb.checked).length;
+      let generalCount = 0;
+
+      generalCheckboxes.forEach((cb) => {
+        const parent = cb.closest('.check-item');
+        if (cb.checked) {
+          generalCount++;
+          parent.classList.add('checked-warn');
+        } else {
+          parent.classList.remove('checked-warn');
+        }
+      });
+
+      generalCountText.textContent = `선택된 상담 권장 항목: ${generalCount}개`;
+
+      if (generalCount > 0) {
+        generalWarnAlert.classList.add('active');
+        generalSafeAlert.classList.remove('active');
+      } else if (redCount === 0) {
+        generalWarnAlert.classList.remove('active');
+        generalSafeAlert.classList.add('active');
+      } else {
+        generalWarnAlert.classList.remove('active');
+        generalSafeAlert.classList.remove('active');
+      }
+    }
+
+    redCheckboxes.forEach((cb) => cb.addEventListener('change', updateRedFlags));
+    generalCheckboxes.forEach((cb) => cb.addEventListener('change', updateGeneralStatus));
+
+    resetRedFlagsBtn.addEventListener('click', () => {
+      redCheckboxes.forEach((cb) => (cb.checked = false));
+      updateRedFlags();
+    });
+
+    resetGeneralBtn.addEventListener('click', () => {
+      generalCheckboxes.forEach((cb) => (cb.checked = false));
+      updateGeneralStatus();
+    });
+  </script>
+</body>
+</html>
